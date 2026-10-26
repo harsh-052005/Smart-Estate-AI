@@ -47,7 +47,7 @@ from scripts.prepare_data import load_prepared_data
 MODEL_PATH   = os.path.join(PROJECT_ROOT, "models", "best_model.joblib")
 PLOTS_DIR    = os.path.join(PROJECT_ROOT, "plots")
 REPORTS_DIR  = os.path.join(PROJECT_ROOT, "reports")
-REPORT_PATH  = os.path.join(REPORTS_DIR, "baseline_and_error_analysis.txt")
+REPORT_PATH  = os.path.join(REPORTS_DIR, "Phase_4_Baseline_Comparison_and_Error_Analysis.txt")
 
 
 def format_inr(val_lakhs):

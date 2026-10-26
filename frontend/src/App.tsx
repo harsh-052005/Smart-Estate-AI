@@ -94,8 +94,6 @@ export function App() {
             <span>FastAPI Server (:8000)</span>
             <span className="text-[#CCCDC7]">•</span>
             <span>React Production UI (:5173)</span>
-            <span className="text-[#CCCDC7]">•</span>
-            <span>Streamlit Interface (:8501)</span>
           </div>
         </div>
       </footer>

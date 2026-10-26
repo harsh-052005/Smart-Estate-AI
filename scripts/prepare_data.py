@@ -37,7 +37,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 CSV_PATH     = os.path.join(PROJECT_ROOT, "bengaluru_house_prices.csv")
 CLEAN_CSV    = os.path.join(PROJECT_ROOT, "data", "bengaluru_cleaned.csv")
 REPORTS_DIR  = os.path.join(PROJECT_ROOT, "reports")
-REPORT_PATH  = os.path.join(REPORTS_DIR, "data_preparation.txt")
+REPORT_PATH  = os.path.join(REPORTS_DIR, "Phase_1_Data_Preparation_and_Cleaning.txt")
 DATA_DIR     = os.path.join(PROJECT_ROOT, "data")
 
 TARGET_COL = "price"

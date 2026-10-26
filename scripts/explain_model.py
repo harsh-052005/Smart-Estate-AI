@@ -45,7 +45,7 @@ from scripts.prepare_data import load_prepared_data, RETAINED_FEATURES
 MODEL_PATH   = os.path.join(PROJECT_ROOT, "models", "best_model.joblib")
 PLOTS_DIR    = os.path.join(PROJECT_ROOT, "plots")
 REPORTS_DIR  = os.path.join(PROJECT_ROOT, "reports")
-REPORT_PATH  = os.path.join(REPORTS_DIR, "phase6_explainability.txt")
+REPORT_PATH  = os.path.join(REPORTS_DIR, "Phase_5_Model_Explainability_and_Feature_Importance.txt")
 PLOT_PATH    = os.path.join(PLOTS_DIR, "feature_importance.png")
 
 

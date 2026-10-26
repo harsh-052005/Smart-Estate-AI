@@ -64,11 +64,11 @@ from scripts.prepare_data import (
 REPORTS_DIR          = os.path.join(PROJECT_ROOT, "reports")
 PLOTS_DIR            = os.path.join(PROJECT_ROOT, "plots")
 MODELS_DIR           = os.path.join(PROJECT_ROOT, "models")
-COMPARISON_TXT_PATH  = os.path.join(REPORTS_DIR, "model_comparison.txt")
-COMPARISON_CSV_PATH  = os.path.join(REPORTS_DIR, "model_comparison.csv")
+COMPARISON_TXT_PATH  = os.path.join(REPORTS_DIR, "Phase_2_Model_Training_and_Validation_Comparison.txt")
+COMPARISON_CSV_PATH  = os.path.join(REPORTS_DIR, "Phase_2_Model_Training_and_Validation_Comparison.csv")
 COMPARISON_PLOT_PATH = os.path.join(PLOTS_DIR,   "model_comparison.png")
 BEST_MODEL_PATH      = os.path.join(MODELS_DIR,  "best_model.joblib")
-FINAL_TEST_TXT_PATH  = os.path.join(REPORTS_DIR, "final_test_evaluation.txt")
+FINAL_TEST_TXT_PATH  = os.path.join(REPORTS_DIR, "Phase_3_Final_Test_Set_Evaluation.txt")
 
 
 def apply_chart_style(ax, grid_axis="y"):

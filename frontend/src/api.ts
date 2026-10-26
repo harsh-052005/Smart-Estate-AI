@@ -149,7 +149,8 @@ export interface MetaData {
   size_bounds: { min: number; max: number; mean: number; median: number };
 }
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const rawBase = (import.meta.env.VITE_API_URL || '/api').trim().replace(/\/+$/, '');
+const API_BASE = rawBase.endsWith('/api') ? rawBase : `${rawBase}/api`;
 
 export const api = {
   getHealth: async () => {

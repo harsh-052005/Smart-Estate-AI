@@ -542,6 +542,18 @@ if os.path.exists(ASSETS_DIR):
     app.mount("/assets", StaticFiles(directory=ASSETS_DIR), name="assets")
 
 
+@app.get("/")
+def serve_root():
+    index_html = os.path.join(DIST_DIR, "index.html")
+    if os.path.exists(index_html):
+        return FileResponse(index_html)
+    return {
+        "status": "online",
+        "service": "Smart Estate AI Backend API",
+        "message": "Frontend build not detected. Please run 'npm run build' inside frontend directory."
+    }
+
+
 @app.get("/{full_path:path}")
 def serve_spa(full_path: str):
     file_path = os.path.join(DIST_DIR, full_path)
@@ -550,4 +562,8 @@ def serve_spa(full_path: str):
     index_html = os.path.join(DIST_DIR, "index.html")
     if os.path.exists(index_html):
         return FileResponse(index_html)
-    return {"message": "Frontend build not found. Run 'npm run build' in frontend directory."}
+    return {
+        "status": "online",
+        "service": "Smart Estate AI Backend API",
+        "message": "Frontend build not detected. Please run 'npm run build' inside frontend directory."
+    }

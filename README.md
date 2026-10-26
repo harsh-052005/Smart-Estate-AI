@@ -104,6 +104,18 @@ streamlit run app.py --server.port 8501
 
 ---
 
+## ☁️ Cloud Deployment (Render)
+
+Smart Estate AI is production-ready for deployment on [Render](https://render.com/) Free Tier:
+
+- **1-Click Blueprint:** Connect your GitHub repo to Render Blueprints using the included [`render.yaml`](render.yaml).
+- **Manual Web Service:** Set build command to `./build.sh` and start command to `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`.
+- **Docker Container:** Multi-stage [`Dockerfile`](Dockerfile) is provided for turnkey container deployments.
+
+See [`DEPLOYMENT.md`](DEPLOYMENT.md) for detailed step-by-step instructions.
+
+---
+
 ## 🧪 Scientific Findings & Model Verification
 
 ### A. Candidate Model Validation Benchmark (40,000 rows)

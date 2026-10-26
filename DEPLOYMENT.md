@@ -20,11 +20,11 @@ Render Blueprints allow you to deploy the entire stack using the included Infras
 4. Connect your GitHub repository: `harsh-052005/Smart-Estate-AI`.
 5. Render will automatically detect [`render.yaml`](file:///Users/harsh/Desktop/Smart%20Estate%20AI/render.yaml) and pre-populate all parameters:
    - **Service Name**: `smart-estate-ai`
-   - **Runtime**: Python 3.11 with Node 20
-   - **Build Command**: `./build.sh`
-   - **Start Command**: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
+   - **Runtime**: `Docker` (Multi-stage build with Node 20 + Python 3.11 + XGBoost runtime)
+   - **Dockerfile**: `./Dockerfile`
+   - **Port**: `10000`
    - **Health Check Path**: `/api/health`
-6. Click **Apply**.
+6. Click **Apply** (or **Manual sync** if already created).
 7. Wait 2–3 minutes for the build and deployment to complete. Your application will be live at `https://smart-estate-ai.onrender.com`!
 
 ---

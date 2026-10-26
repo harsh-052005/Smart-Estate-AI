@@ -1,20 +1,18 @@
 # ==============================================================================
 # Smart Estate AI — Render Blueprint (Infrastructure as Code)
-# One-click deployment specification for Render (Free Tier Friendly)
+# Multi-Stage Docker Container Deployment (Free Tier Friendly)
 # ==============================================================================
 
 services:
   - type: web
     name: smart-estate-ai
-    runtime: python
+    runtime: docker
     plan: free
     region: oregon
-    buildCommand: "./build.sh"
-    startCommand: "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: "/api/health"
     autoDeploy: true
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.9
-      - key: NODE_VERSION
-        value: 20.18.0
+      - key: PORT
+        value: "10000"

@@ -1,0 +1,11 @@
+{
+  "name": "smart-estate-ai",
+  "version": "1.0.0",
+  "description": "Smart Estate AI — Production PropTech ML Web Application",
+  "scripts": {
+    "start": "bash start.sh",
+    "dev": "bash start.sh",
+    "backend": "python3 -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload",
+    "frontend": "npm --prefix frontend run dev"
+  }
+}

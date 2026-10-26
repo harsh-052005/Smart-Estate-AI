@@ -1,0 +1,24 @@
+SMART ESTATE AI — DATA PREPARATION REPORT (BENGALURU HOUSING)
+=============================================================
+
+Source Dataset: /Users/harsh/Desktop/Smart Estate AI/bengaluru_house_prices.csv
+Raw Rows: 13,320
+Cleaned Rows: 12,496
+Train Rows: 9,996
+Test Rows: 2,500
+Target: price (in Indian Lakhs)
+Retained Input Features: total_sqft, bhk, bath, balcony, location, area_type, availability
+Transformed Model Features: 247
+
+Target Statistics (Cleaned):
+  Min: ₹ 9.00 Lakhs
+  Mean: ₹ 109.66 Lakhs
+  Median: ₹ 70.00 Lakhs
+  Max: ₹ 2912.00 Lakhs
+  Std: ₹ 141.91 Lakhs
+
+Feature Correlations with Target (Price):
+  - total_sqft: r = +0.7551
+  - bhk: r = +0.4891
+  - bath: r = +0.5335
+  - balcony: r = +0.0805

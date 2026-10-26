@@ -1,0 +1,8 @@
+========================================================================
+  Smart Estate AI -- Final Test Evaluation: XGBoost
+========================================================================
+  Evaluation Set           : Untouched Test Split (2,500 rows)
+  Test MAE                 : ₹ 28.64 Lakhs (₹ 2,863,909)
+  Test RMSE                : ₹ 66.96 Lakhs (₹ 6,695,876)
+  Test R² Score            : 0.7628
+  Inference Latency        : 0.003 ms / property

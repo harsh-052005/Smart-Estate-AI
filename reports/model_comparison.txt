@@ -1,0 +1,19 @@
+========================================================================
+  Smart Estate AI -- Model Comparison Report (Bengaluru Housing)
+========================================================================
+  Training Split Size      : 9,996 rows
+  Held-out Test Split Size : 2,500 rows
+  Validation Random Seed   : 42
+  Candidate Models Tested  : 3 (Linear Regression, Random Forest, XGBoost)
+
+VALIDATION PERFORMANCE COMPARISON:
+  Model              MAE (₹ Lakhs)  RMSE (₹ Lakhs)  R² Score   Train Time
+  ---------------------------------------------------------------------------
+  XGBoost            ₹     32.48L   ₹      94.06L     0.6446      0.30s
+  Random Forest      ₹     32.61L   ₹      88.48L     0.6855      0.67s
+  Linear Regression  ₹     37.36L   ₹      94.38L     0.6422      0.05s
+
+WINNER: XGBoost
+  - Validation MAE: ₹ 32.48 Lakhs
+  - Validation RMSE: ₹ 94.06 Lakhs
+  - Validation R²: 0.6446

@@ -1,0 +1,165 @@
+========================================================================
+  Smart Estate AI -- Phase 3: Data Preparation Verification Report
+========================================================================
+  Stage     : Phase 3 Verification & Diagnostics
+  Dataset   : /Users/harsh/Desktop/Smart Estate AI/india_housing_prices.csv
+  Script    : scripts/prepare_data.py
+  Mode      : Verification & Quality Assurance (Read-Only)
+  Status    : ALL 6 VERIFICATION CHECKS PASSED
+
+========================================================================
+  1. EXACT TRANSFORMED COLUMN COUNTS & DISCREPANCY EXPLANATION
+========================================================================
+  Diagnostic Verification of ColumnTransformer Branches:
+    - Numerical Branch ('num')        : 5 columns
+    - Categorical Branch ('cat')      : 84 columns
+    - Amenities Branch ('amenities')  : 5 columns
+    - Combined Output Features        : 94 columns
+    - Verification Formula            : 5 + 84 + 5 = 94 columns (Exact Match)
+
+  Explanation of the Discrepancy:
+    The earlier draft text in data_preparation.txt referred to "69 columns"
+    due to an initial manual estimate that assumed 20 cities (matching the
+    20 states).
+    However, diagnostic inspection of X_train reveals exactly 42 unique
+    cities across the 20 states.
+
+    The exact category count across all 10 categorical columns is:
+      1. State                          : 20 categories
+      2. City                           : 42 categories
+      3. Property_Type                  :  3 categories (Apartment, Independent House, Villa)
+      4. Furnished_Status               :  3 categories (Furnished, Semi-furnished, Unfurnished)
+      5. Public_Transport_Accessibility :  3 categories (High, Medium, Low)
+      6. Parking_Space                  :  2 categories (Yes, No)
+      7. Security                       :  2 categories (Yes, No)
+      8. Facing                         :  4 categories (North, South, East, West)
+      9. Owner_Type                     :  3 categories (Owner, Builder, Broker)
+     10. Availability_Status            :  2 categories (Ready_to_Move, Under_Construction)
+      ----------------------------------------------------------------------------------
+      Total One-Hot Categorical Columns : 84 columns
+
+    Adding the 5 numerical features (BHK, Size_in_SqFt, Year_Built,
+    Nearby_Schools, Nearby_Hospitals) and the 5 multi-hot amenities gives
+    precisely 5 + 84 + 5 = 94 transformed features.
+
+========================================================================
+  2. AMENITIES PROCESSING & EDGE CASE VERIFICATION
+========================================================================
+  Learned Amenity Indicators:
+    ['Clubhouse', 'Garden', 'Gym', 'Playground', 'Pool'] (5 binary flags)
+
+  Verification of Edge Case Handling:
+    (a) Standard Multilabel:
+        Input: "Gym, Pool"
+        Output: {'Clubhouse': 0, 'Garden': 0, 'Gym': 1, 'Playground': 0, 'Pool': 1} (PASSED)
+
+    (b) Permuted Order:
+        Input: "Pool, Gym"
+        Output: {'Clubhouse': 0, 'Garden': 0, 'Gym': 1, 'Playground': 0, 'Pool': 1} (PASSED)
+
+    (c) Completely Unseen Amenities:
+        Input: "Helipad, Jacuzzi, Private_Theater"
+        Output: {'Clubhouse': 0, 'Garden': 0, 'Gym': 0, 'Playground': 0, 'Pool': 0} (PASSED)
+        Result: Safely produces all zeros; no runtime exceptions raised.
+
+    (d) Mixed Seen and Unseen Amenities:
+        Input: "Gym, Helipad"
+        Output: {'Clubhouse': 0, 'Garden': 0, 'Gym': 1, 'Playground': 0, 'Pool': 0} (PASSED)
+        Result: Correctly sets Gym=1 and ignores 'Helipad'.
+
+    (e) Empty String & Whitespace:
+        Input: "" and "   "
+        Output: {'Clubhouse': 0, 'Garden': 0, 'Gym': 0, 'Playground': 0, 'Pool': 0} (PASSED)
+
+    (f) Null / NaN / None Values:
+        Input: None or float('nan')
+        Output: {'Clubhouse': 0, 'Garden': 0, 'Gym': 0, 'Playground': 0, 'Pool': 0} (PASSED)
+        Result: Handled via clean_amenities_string preprocessor; prevents ValueError.
+
+========================================================================
+  3. TRAINING-ONLY ESTIMATOR FITTING (NO DATA LEAKAGE)
+========================================================================
+  Verification of Pipeline Fitting Discipline:
+    - Estimator Fitting Target  : X_train ONLY (200,000 rows)
+    - Test Set Transformation   : X_test (50,000 rows) transformed via transform()
+    - Scaler Parameters Check   :
+        * scaler.n_samples_seen_ = 200,000.0 (matches len(X_train) exactly)
+        * scaler.mean_ matches X_train[NUMERICAL_FEATURES].mean() to machine precision
+    - Parameter Invariance Check:
+        * Executing linear_prep.transform(X_test) leaves scaler.mean_ and scaler.var_
+          completely unchanged.
+    - Zero Target Leakage: Confirmed. No test-set statistics leak into the pipeline.
+
+========================================================================
+  4. TRAIN / TEST SPLIT INTEGRITY & INDEX AUDIT
+========================================================================
+  Index Audit from data/split_indices.npz:
+    - Total Dataset Rows         : 250,000
+    - Training Rows (X_train)    : 200,000 (80.00%)
+    - Unique Training Indices    : 200,000 (0 duplicates)
+    - Test Rows (X_test)         :  50,000 (20.00%)
+    - Unique Test Indices        :  50,000 (0 duplicates)
+    - Train / Test Overlap       : 0 rows (mutually exclusive)
+    - Union of Indices           : Exactly matches [0, 249,999] (0 missing rows)
+    - Target Distribution Balance:
+        * y_train Mean ± Std     : ₹ 254.55 ± ₹ 141.39 Lakhs (Median: ₹ 254.14L)
+        * y_test  Mean ± Std     : ₹ 254.71 ± ₹ 141.19 Lakhs (Median: ₹ 252.82L)
+        * Difference in Means    : ₹ 0.16 Lakhs (0.06% variation, perfectly balanced)
+
+========================================================================
+  5. TARGET EXCLUSION, CSV IMMUTABILITY & REPRODUCIBILITY
+========================================================================
+  Verification Checks:
+    (a) Target Exclusion:
+        - Price_in_Lakhs present in X feature matrix? : FALSE (Excluded)
+        - Price_in_Lakhs in transformed feature names? : FALSE (Excluded)
+        - Target used strictly as regression output y : TRUE
+
+    (b) Original CSV Immutability:
+        - File Path         : /Users/harsh/Desktop/Smart Estate AI/india_housing_prices.csv
+        - File Size         : 41,113,393 bytes
+        - SHA-256 Checksum  : b0032196fcf336799daf45f7fed16199ff62cf23717e6dee76911467fb1d6367
+        - CSV Modification  : UNCHANGED (original raw file remains pristine)
+
+    (c) Deterministic Reproducibility:
+        - Repeated split execution with random_state=42 generates 100% identical
+          train and test indices across independent script runs.
+
+========================================================================
+  6. PIPELINE PERSISTENCE & RECOMMENDED REPRODUCIBILITY APPROACH
+========================================================================
+  Current Storage Status:
+    1. Split Indices:
+       Saved to data/split_indices.npz (773 KB).
+       Ensures exact row splits are reproducible without storing a redundant 41MB duplicate CSV.
+
+    2. Fitted Pipeline Artifacts:
+       Exported to:
+         - data/preprocessor_linear.joblib (6.4 KB)
+         - data/preprocessor_tree.joblib   (6.1 KB)
+       Preprocessors use picklable top-level functions (clean_amenities_string,
+       split_amenities_tokens) ensuring joblib compatibility.
+
+    3. Programmatic Loader:
+       scripts/prepare_data.py provides a load_prepared_data() function that
+       seamlessly loads the raw CSV, applies the saved split indices, and loads
+       the fitted preprocessors in < 0.1s.
+
+  RECOMMENDED REPRODUCIBLE APPROACH FOR PHASE 4:
+    Use the programmatic loader pattern:
+      from scripts.prepare_data import load_prepared_data
+      X_train, X_test, y_train, y_test, linear_prep, tree_prep = load_prepared_data()
+
+    Why this is the simplest and best approach:
+      - Deterministic: Always yields the exact same 200k/50k split and 94 features.
+      - Lean Storage: Avoids generating 80+ MB of uncompressed train/test CSV copies.
+      - Fast: Loads in under 0.3 seconds.
+      - Modular: Allows Phase 4 model training scripts to decouple preprocessing from model fitting.
+
+========================================================================
+  7. CONCLUSION & NEXT STEPS
+========================================================================
+  Phase 3 (Data Preparation) is thoroughly verified and production-ready.
+  No models were trained, no packages were installed needlessly, and the original
+  CSV was preserved completely unmodified.
+========================================================================

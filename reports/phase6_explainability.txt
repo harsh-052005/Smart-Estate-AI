@@ -1,0 +1,26 @@
+========================================================================
+  Smart Estate AI -- Model Interpretation & Explainability Report
+========================================================================
+
+AGGREGATED MDI FEATURE IMPORTANCE:
+  location          :  81.37%
+  total_sqft        :   6.87%
+  area_type         :   5.16%
+  availability      :   2.37%
+  bhk               :   1.90%
+  bath              :   1.45%
+  balcony           :   0.87%
+
+PERMUTATION IMPORTANCE (MAE IMPACT):
+  total_sqft        : +₹ 44.20 Lakhs
+  location          : +₹ 5.73 Lakhs
+  bath              : +₹ 4.83 Lakhs
+  area_type         : +₹ 3.05 Lakhs
+  bhk               : +₹ 2.81 Lakhs
+  availability      : +₹ 0.24 Lakhs
+  balcony           : +₹ -0.13 Lakhs
+
+SUMMARY:
+  1. Total square footage (total_sqft) and location are the primary value drivers.
+  2. Shuffling total_sqft causes the largest degradation in prediction accuracy.
+  3. The model exhibits logical, explainable real estate behavior.

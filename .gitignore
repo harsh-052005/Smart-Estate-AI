@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Caches and environments
+.Python
+env/
+venv/
+ENV/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+matplotlib_config/
+
+# Node & Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/dist-ssr/
+frontend/*.tsbuildinfo
+
+# OS / Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local logs
+*.log
+
+# Dependencies and env
+node_modules/
+.env*
+!.env.example
+
+# AI agent caches
+.agents/
+.claude/
+

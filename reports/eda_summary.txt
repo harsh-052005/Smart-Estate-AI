@@ -1,0 +1,241 @@
+
+========================================================================
+  Smart Estate AI -- Exploratory Data Analysis (EDA) Summary
+========================================================================
+  Dataset Path : /Users/harsh/Desktop/Smart Estate AI/india_housing_prices.csv
+  Row Count    : 250,000
+  Column Count : 23
+  Mode         : READ-ONLY Analysis (No data cleaned, modified, or imputed)
+  ML Models    : NONE (EDA stage strictly precedes preprocessing and modelling)
+
+========================================================================
+  1. TARGET VARIABLE ANALYSIS (Price_in_Lakhs)
+========================================================================
+  Descriptive Statistics:
+    count    : ₹ 250,000.00 Lakhs
+    mean     : ₹     254.59 Lakhs
+    std      : ₹     141.35 Lakhs
+    min      : ₹      10.00 Lakhs
+    5%       : ₹      34.55 Lakhs
+    25%      : ₹     132.55 Lakhs
+    50%      : ₹     253.87 Lakhs
+    75%      : ₹     376.88 Lakhs
+    95%      : ₹     475.42 Lakhs
+    max      : ₹     500.00 Lakhs
+
+  Skewness     : 0.0082 (near 0: remarkably symmetric distribution)
+  Kurtosis     : -1.1988 (near -1.2: platykurtic, characteristic of uniform data)
+  Hard Minimum : ₹ 10.00 Lakhs (exactly 2 rows at floor)
+  Hard Maximum : ₹ 500.00 Lakhs (exactly 1 rows at cap)
+
+  Interpretation:
+    In real real-estate markets, property prices exhibit positive skew (long right tail
+    due to luxury properties). Here, prices are almost uniformly distributed between
+    ₹10.0L and ₹500.0L, representing an artificial uniform envelope.
+
+========================================================================
+  2. PROPERTY SIZE ANALYSIS (Size_in_SqFt)
+========================================================================
+  Descriptive Statistics:
+    count    :  250,000.0 sq-ft
+    mean     :    2,749.8 sq-ft
+    std      :    1,300.6 sq-ft
+    min      :      500.0 sq-ft
+    5%       :      723.0 sq-ft
+    25%      :    1,623.0 sq-ft
+    50%      :    2,747.0 sq-ft
+    75%      :    3,874.0 sq-ft
+    95%      :    4,778.0 sq-ft
+    max      :    5,000.0 sq-ft
+
+  Skewness     : 0.0008 (near 0)
+  Strict Bounds: 500 to 5,000 sq-ft (exactly flat 500 – 5,000 range)
+
+  Interpretation:
+    Property area is bounded uniformly between 500 and 5,000 sq-ft.
+
+========================================================================
+  3. BIVARIATE RELATIONSHIPS WITH PRICE
+========================================================================
+
+  -- (a) Price by BHK (1 to 5 BHK)
+    BHK        Count     Pct     Mean Price   Median Price      Std Dev
+    ------------------------------------------------------------------
+    1         50,196  20.08% ₹     254.88L ₹     254.06L ₹   141.36L
+    2         49,815  19.93% ₹     254.80L ₹     253.30L ₹   141.29L
+    3         50,067  20.03% ₹     254.09L ₹     253.13L ₹   141.29L
+    4         49,788  19.92% ₹     254.78L ₹     254.92L ₹   141.35L
+    5         50,134  20.05% ₹     254.39L ₹     253.87L ₹   141.46L
+
+    CRITICAL FINDING: Mean price is virtually identical across all BHK levels (₹254.4L – ₹255.0L).
+    In authentic housing data, BHK strongly dictates price. Here, no price premium exists.
+
+  -- (b) Price by Property_Type
+    Property Type            Count     Pct     Mean Price   Median Price
+    --------------------------------------------------------------------
+    Apartment               82,956  33.18% ₹     254.62L ₹     254.02L
+    Independent House       83,300  33.32% ₹     255.37L ₹     255.04L
+    Villa                   83,744  33.50% ₹     253.77L ₹     252.53L
+
+    CRITICAL FINDING: All property types (Apartment (₹254.6L), Independent House (₹255.4L), Villa (₹253.8L)) share nearly identical average prices.
+
+  -- (c) Average Price by State (Sorted Highest to Lowest)
+    State                    Count     Pct     Mean Price   Median Price
+    --------------------------------------------------------------------
+    Karnataka               12,424   4.97% ₹     257.41L ₹     258.08L
+    Tamil Nadu              12,629   5.05% ₹     256.66L ₹     256.32L
+    Uttar Pradesh           12,508   5.00% ₹     256.25L ₹     257.41L
+    Madhya Pradesh          12,451   4.98% ₹     255.96L ₹     255.87L
+    Gujarat                 12,578   5.03% ₹     255.79L ₹     256.63L
+    Telangana               12,539   5.02% ₹     255.54L ₹     254.75L
+    Andhra Pradesh          12,462   4.98% ₹     255.20L ₹     255.70L
+    Bihar                   12,369   4.95% ₹     254.92L ₹     252.34L
+    Maharashtra             12,533   5.01% ₹     254.71L ₹     254.54L
+    Uttarakhand             12,501   5.00% ₹     254.68L ₹     254.98L
+    Rajasthan               12,402   4.96% ₹     254.60L ₹     252.05L
+    Haryana                 12,314   4.93% ₹     254.45L ₹     255.12L
+    Kerala                  12,487   4.99% ₹     254.37L ₹     254.31L
+    West Bengal             12,622   5.05% ₹     254.01L ₹     250.93L
+    Jharkhand               12,480   4.99% ₹     253.61L ₹     251.55L
+    Odisha                  12,681   5.07% ₹     252.84L ₹     250.99L
+    Punjab                  12,516   5.01% ₹     252.80L ₹     250.51L
+    Assam                   12,496   5.00% ₹     252.78L ₹     251.57L
+    Chhattisgarh            12,456   4.98% ₹     252.68L ₹     252.32L
+    Delhi                   12,552   5.02% ₹     252.53L ₹     250.41L
+
+    CRITICAL FINDING: Spread across all 20 states is only ₹4.88 Lakhs (₹252.5L to ₹257.4L).
+    Regional economic disparity is completely absent.
+
+  -- (d) Price vs. Size_in_SqFt
+    Pearson Correlation (r) : -0.0025
+    CRITICAL FINDING: There is ZERO linear correlation between property size and price.
+    In real estate, property area is the single largest component of asset valuation.
+
+  -- (e) Price vs. Year_Built
+    Year Range              : 1990 to 2023
+    Pearson Correlation (r) : 0.0027
+    CRITICAL FINDING: Age/construction year carries no correlation with price.
+
+========================================================================
+  4. CORRELATION ANALYSIS (Numeric Features)
+========================================================================
+  NOTE ON INTERPRETATION: Correlation measures linear association, not causation.
+  EXCLUSIONS:
+    - ID is excluded (arbitrary row identifier).
+    - Price_per_SqFt is excluded (derived directly from Price_in_Lakhs; data leakage).
+  FLAGS:
+    - Floor_No & Total_Floors (*) are flagged as unreliable due to 46.52% inversion.
+
+  Feature            Price_in Size_in_      BHK Year_Bui Age_of_P Nearby_S Nearby_H Floor_No Total_Fl
+  -----------------------------------------------------------------------------------------------------
+  Price_in_Lakhs        1.000   -0.003   -0.001    0.003   -0.003    0.000   -0.003   -0.002    0.001
+  Size_in_SqFt         -0.003    1.000   -0.001    0.004   -0.004    0.002   -0.002   -0.003   -0.003
+  BHK                  -0.001   -0.001    1.000    0.001   -0.001   -0.001    0.001    0.001   -0.003
+  Year_Built            0.003    0.004    0.001    1.000   -1.000   -0.001   -0.003   -0.001    0.003
+  Age_of_Property      -0.003   -0.004   -0.001   -1.000    1.000    0.001    0.003    0.001   -0.003
+  Nearby_Schools        0.000    0.002   -0.001   -0.001    0.001    1.000   -0.002   -0.001   -0.003
+  Nearby_Hospitals     -0.003   -0.002    0.001   -0.003    0.003   -0.002    1.000    0.001   -0.006
+  Floor_No*            -0.002   -0.003    0.001   -0.001    0.001   -0.001    0.001    1.000    0.001
+  Total_Floors*         0.001   -0.003   -0.003    0.003   -0.003   -0.003   -0.006    0.001    1.000
+
+  Correlation Matrix Highlights:
+    1. Year_Built vs. Age_of_Property: r = -1.000 (perfect mathematical dependency).
+    2. Price_in_Lakhs vs. ALL other features: |r| <= 0.004 (essentially zero correlation).
+    3. Size_in_SqFt vs. BHK: r = -0.001 (BHK and area are completely independent).
+
+========================================================================
+  5. CATEGORICAL DISTRIBUTIONS
+========================================================================
+
+  -- Distribution of Furnished_Status
+    Unfurnished               :   83,408 rows  (33.36%)
+    Semi-furnished            :   83,374 rows  (33.35%)
+    Furnished                 :   83,218 rows  (33.29%)
+    Category Spread: 0.08 percentage points (uniform)
+
+
+  -- Distribution of Owner_Type
+    Broker                    :   83,479 rows  (33.39%)
+    Owner                     :   83,268 rows  (33.31%)
+    Builder                   :   83,253 rows  (33.30%)
+    Category Spread: 0.09 percentage points (uniform)
+
+
+  -- Distribution of Availability_Status
+    Under_Construction        :  125,035 rows  (50.01%)
+    Ready_to_Move             :  124,965 rows  (49.99%)
+    Category Spread: 0.03 percentage points (uniform)
+
+
+  -- Distribution of Facing
+    West                      :   62,757 rows  (25.10%)
+    North                     :   62,637 rows  (25.05%)
+    South                     :   62,337 rows  (24.93%)
+    East                      :   62,269 rows  (24.91%)
+    Category Spread: 0.20 percentage points (uniform)
+
+
+  -- Distribution of Public_Transport_Accessibility
+    High                      :   83,705 rows  (33.48%)
+    Low                       :   83,287 rows  (33.31%)
+    Medium                    :   83,008 rows  (33.20%)
+    Category Spread: 0.28 percentage points (uniform)
+
+
+  -- Distribution of Parking_Space
+    No                        :  125,456 rows  (50.18%)
+    Yes                       :  124,544 rows  (49.82%)
+    Category Spread: 0.36 percentage points (uniform)
+
+
+  -- Distribution of Security
+    Yes                       :  125,233 rows  (50.09%)
+    No                        :  124,767 rows  (49.91%)
+    Category Spread: 0.19 percentage points (uniform)
+
+
+========================================================================
+  6. SURPRISING PATTERNS & REALISM SYNTHESIS
+========================================================================
+  EVIDENCE-BASED CONCLUSION:
+  Do NOT interpret this dataset as verified real-world market data.
+  There are STRONG INDICATORS OF SYNTHETIC DATA throughout the entire dataset:
+
+    1. Independence of Fundamentals:
+       In real property transactions, Price strongly correlates with Size and BHK.
+       Here, r(Price, Size) = -0.003 and r(Price, BHK) = -0.001.
+
+    2. Equalized Subgroup Means:
+       Every State, Property Type, BHK category, and construction year averages
+       approximately ₹254 Lakhs. Real markets show significant tiering.
+
+    3. Artificial Uniformity:
+       Nearby_Schools (1–10) and Nearby_Hospitals (1–10) each have exactly ~10% per bucket.
+       BHK (1–5) has exactly ~20% per bucket (spread = 0.16 pp).
+
+    4. Deterministic Identity:
+       Age_of_Property is exactly 2025 - Year_Built in all 250,000 rows.
+
+    5. Severe Structural Floor Contradictions:
+       116,304 rows (46.52%) have Floor_No > Total_Floors.
+
+  MODELLING IMPLICATIONS:
+    - Price_per_SqFt must remain EXCLUDED to prevent severe data leakage.
+    - Standard linear regression will find negligible linear signal (near zero R^2)
+      unless nonlinear combinations or synthetic generation formulas exist.
+    - Any model trained on this dataset cannot be expected to generalize to real housing.
+
+========================================================================
+  7. GENERATED CHARTS INVENTORY (plots/)
+========================================================================
+  - plots/01_price_distribution.png      : Distribution of Price_in_Lakhs with marked Mean and Median lines.
+  - plots/02_size_distribution.png       : Distribution of Size_in_SqFt showing 500-5000 sq-ft uniform bounds.
+  - plots/03_price_by_bhk.png            : BHK vs Price bar chart comparing Mean and Median price across 1-5 BHK.
+  - plots/04_price_by_property_type.png  : Box plot of price distribution across 4 property types.
+  - plots/05_price_by_state.png          : Horizontal bar chart of average price by state ranked descending.
+  - plots/06_price_vs_size_scatter.png   : Scatter plot of price vs size with linear fit line (5,000-point sample).
+  - plots/07_price_vs_year_built.png     : Trend of average and median price across construction years 1990-2025.
+  - plots/08_correlation_heatmap.png     : Heatmap of Pearson correlations for numeric features with floor flags.
+  - plots/09_category_counts.png         : Subplots displaying counts for Furnished, Owner, and Availability.
+
+  Stage 3 EDA completed. Report saved to: reports/eda_summary.txt

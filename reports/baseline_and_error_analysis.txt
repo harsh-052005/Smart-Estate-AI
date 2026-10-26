@@ -1,0 +1,18 @@
+========================================================================
+  Smart Estate AI -- Baseline Comparison & Error Analysis (Bengaluru)
+========================================================================
+
+Test Partition Size : 2,500 rows
+Baseline Mean Price : ₹ 110.15 Lakhs (₹ 1,10,14,912)
+
+METRIC COMPARISON:
+  Metric         Baseline           Best Model         Difference         % Change
+  ----------------------------------------------------------------------------
+  MAE            ₹    72.30L        ₹    28.64L          -43.67L         -60.39%
+  RMSE           ₹   137.52L        ₹    66.96L          -70.56L         -51.31%
+  R² Score          -0.0003              0.7628             +0.7632         N/A
+
+KEY FINDINGS:
+  1. The trained model achieves an R² of 0.7628, demonstrating genuine explanatory power.
+  2. MAE is reduced by 60.4% compared to predicting the simple training mean.
+  3. Predictions track real physical attributes (total_sqft, bhk, location).

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-dusty-rose: #BC7B6F;
   --color-dusty-rose-light: #C99086;
@@ -25,6 +27,13 @@
   --color-ivory-subtle: #F3EFE9;
   --color-surface: #FFFFFF;
 
+  /* Retro Space Dark Theme Palette */
+  --color-dark-bg: #202734;
+  --color-dark-surface: #273042;
+  --color-dark-navy: #36415A;
+  --color-dark-green: #B7D894;
+  --color-dark-lime: #E0F8C7;
+
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -48,6 +57,7 @@
     font-family: var(--font-sans);
     min-height: 100vh;
     overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   h1, h2, h3, .font-editorial {
@@ -142,4 +152,152 @@ textarea:focus {
 /* Range input accent */
 input[type="range"] {
   accent-color: #BC7B6F;
+}
+
+/* ==========================================================
+   RETRO SPACE DARK THEME (#202734, #36415A, #B7D894, #E0F8C7)
+   ========================================================== */
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #202734 !important;
+  color: #D2DCE6 !important;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #202734;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #36415A;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #B7D894;
+}
+
+/* Dark Theme Surface Cards */
+html.dark .editorial-card {
+  background: #273042 !important;
+  border-color: #36415A !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 20, 30, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark .editorial-card:hover {
+  border-color: #4D5E7E !important;
+  box-shadow: 0 10px 28px -4px rgba(183, 216, 148, 0.1) !important;
+}
+
+html.dark .editorial-card-featured {
+  background: linear-gradient(145deg, #273042 0%, #1E2533 100%) !important;
+  border: 1px solid rgba(183, 216, 148, 0.35) !important;
+  box-shadow: 0 12px 32px -4px rgba(183, 216, 148, 0.12) !important;
+}
+
+/* Dark Theme Badges */
+html.dark .editorial-badge {
+  background-color: rgba(183, 216, 148, 0.14) !important;
+  color: #E0F8C7 !important;
+  border-color: rgba(183, 216, 148, 0.3) !important;
+}
+
+html.dark .editorial-badge-slate {
+  background-color: rgba(54, 65, 90, 0.55) !important;
+  color: #B7D894 !important;
+  border-color: #36415A !important;
+}
+
+/* Dark Theme Inputs & Controls */
+html.dark input[type="text"],
+html.dark input[type="number"],
+html.dark select,
+html.dark textarea {
+  background-color: #1A222F !important;
+  border-color: #36415A !important;
+  color: #F1F7EE !important;
+}
+
+html.dark select option {
+  background-color: #1A222F !important;
+  color: #F1F7EE !important;
+}
+
+html.dark input[type="text"]:focus,
+html.dark input[type="number"]:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+  border-color: #B7D894 !important;
+  box-shadow: 0 0 0 3px rgba(183, 216, 148, 0.22) !important;
+}
+
+html.dark input[type="range"] {
+  accent-color: #B7D894 !important;
+}
+
+/* Global Utility Mappings for Seamless Theme Harmony */
+html.dark .bg-\[\#FAF8F5\] { background-color: #202734 !important; }
+html.dark .bg-\[\#FAF8F5\]\/90 { background-color: rgba(32, 39, 52, 0.92) !important; }
+html.dark .bg-\[\#FFFFFF\] { background-color: #273042 !important; }
+html.dark .bg-\[\#FAF6F4\] { background-color: #1E2533 !important; }
+html.dark .bg-\[\#FAF0ED\] { background-color: rgba(183, 216, 148, 0.12) !important; }
+html.dark .bg-\[\#F8ECE9\] { background-color: rgba(183, 216, 148, 0.15) !important; }
+html.dark .bg-\[\#EDF2F6\] { background-color: #36415A !important; }
+html.dark .bg-\[\#F3EBE8\] { background-color: rgba(183, 216, 148, 0.12) !important; }
+html.dark .bg-\[\#FDF9F7\] { background-color: rgba(183, 216, 148, 0.08) !important; }
+html.dark .bg-\[\#F6EFEB\] { background-color: #1E2533 !important; }
+html.dark .bg-\[\#5A322A\] { background-color: #36415A !important; }
+html.dark .bg-\[\#3D221C\] { background-color: #202734 !important; }
+
+html.dark .hover\:bg-\[\#3D221C\]:hover { background-color: #455372 !important; }
+html.dark .hover\:bg-\[\#5A322A\]:hover { background-color: #36415A !important; }
+html.dark .hover\:bg-\[\#F3EFEA\]:hover { background-color: #303B4E !important; }
+html.dark .hover\:bg-\[\#F2ECE6\]:hover { background-color: #303B4E !important; }
+html.dark .hover\:bg-\[\#FAF8F5\]:hover { background-color: #2D374A !important; }
+html.dark .hover\:bg-\[\#F4EFEB\]:hover { background-color: #303B4E !important; }
+html.dark .focus\:bg-\[\#FFFFFF\]:focus { background-color: #1A222F !important; }
+
+/* Dark Theme Typography Mappings */
+html.dark .text-\[\#3D221C\] { color: #F1F7EE !important; }
+html.dark .text-\[\#5A322A\] { color: #D2DCE6 !important; }
+html.dark .text-\[\#5A322A\]\/80 { color: rgba(210, 220, 230, 0.85) !important; }
+html.dark .text-\[\#826F6A\] { color: #8FA0B8 !important; }
+html.dark .text-\[\#705F5A\] { color: #8FA0B8 !important; }
+html.dark .text-\[\#BC7B6F\] { color: #B7D894 !important; }
+html.dark .text-\[\#E4A499\] { color: #E0F8C7 !important; }
+html.dark .text-\[\#718A9E\] { color: #9AB2CE !important; }
+html.dark .text-\[\#CCCDC7\] { color: #4B5A79 !important; }
+html.dark .text-\[\#FAF8F5\] { color: #F1F7EE !important; }
+html.dark .text-\[\#A89893\] { color: #6D7F99 !important; }
+
+/* Dark Theme Borders */
+html.dark .border-\[\#E8E4DC\] { border-color: #36415A !important; }
+html.dark .border-\[\#D8D4CC\] { border-color: #36415A !important; }
+html.dark .border-\[\#E0DCD4\] { border-color: #36415A !important; }
+html.dark .border-\[\#CCCDC7\] { border-color: #4B5A79 !important; }
+html.dark .border-\[\#E8D4D0\] { border-color: rgba(183, 216, 148, 0.25) !important; }
+html.dark .border-\[\#F0ECE6\] { border-color: #36415A !important; }
+html.dark .border-\[\#E8DCD6\] { border-color: #36415A !important; }
+
+html.dark .border-t-\[\#BC7B6F\] { border-top-color: #B7D894 !important; }
+html.dark .border-t-\[\#5A322A\] { border-top-color: #36415A !important; }
+html.dark .border-t-\[\#718A9E\] { border-top-color: #7E97B8 !important; }
+html.dark .border-t-\[\#E4A499\] { border-top-color: #E0F8C7 !important; }
+html.dark .border-l-\[\#BC7B6F\] { border-left-color: #B7D894 !important; }
+html.dark .border-l-\[\#718A9E\] { border-left-color: #7E97B8 !important; }
+
+/* Subtle pulse glow for active dark mode elements */
+@keyframes darkGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(183, 216, 148, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(183, 216, 148, 0.28);
+  }
+}
+
+.dark-glow-pulse {
+  animation: darkGlow 3s infinite ease-in-out;
 }

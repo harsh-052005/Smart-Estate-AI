@@ -21,6 +21,7 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
+import { useTheme } from '../context/ThemeContext';
 
 interface OverviewPageProps {
   data: OverviewData | null;
@@ -29,6 +30,8 @@ interface OverviewPageProps {
 }
 
 export const OverviewPage: React.FC<OverviewPageProps> = ({ data, onExploreClick, onPredictClick }) => {
+  const { isDark } = useTheme();
+
   const benchmarkComparison = [
     { name: 'XGBoost (Winner)', mae: 28.64, rmse: 66.96, r2: 0.7628 },
     { name: 'Random Forest', mae: 32.61, rmse: 88.48, r2: 0.6855 },
@@ -68,9 +71,13 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ data, onExploreClick
           <div className="flex flex-wrap gap-3.5 pt-3">
             <button
               onClick={onPredictClick}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#5A322A] hover:bg-[#3D221C] text-[#FAF8F5] font-sans font-bold text-sm shadow-sm hover:shadow-md transition-all cursor-pointer"
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-sans font-bold text-sm shadow-sm hover:shadow-md transition-all cursor-pointer ${
+                isDark 
+                  ? 'bg-[#B7D894] hover:bg-[#A6CB82] text-[#202734]' 
+                  : 'bg-[#5A322A] hover:bg-[#3D221C] text-[#FAF8F5]'
+              }`}
             >
-              <Sparkles className="w-4 h-4 text-[#E4A499]" />
+              <Sparkles className={`w-4 h-4 ${isDark ? 'text-[#202734]' : 'text-[#E4A499]'}`} />
               Open Valuation Studio
             </button>
             <button
@@ -149,14 +156,20 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ data, onExploreClick
           <div className="h-64 sm:h-72 w-full pt-2">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={benchmarkComparison} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E8E4DC" vertical={false} />
-                <XAxis dataKey="name" stroke="#826F6A" fontSize={11} tickLine={false} />
-                <YAxis stroke="#826F6A" fontSize={11} tickLine={false} tickFormatter={(val) => `₹${val}L`} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#36415A' : '#E8E4DC'} vertical={false} />
+                <XAxis dataKey="name" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={11} tickLine={false} />
+                <YAxis stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={11} tickLine={false} tickFormatter={(val) => `₹${val}L`} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CCCDC7', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
+                  contentStyle={{ 
+                    backgroundColor: isDark ? '#202734' : '#FFFFFF', 
+                    borderColor: isDark ? '#36415A' : '#CCCDC7', 
+                    borderRadius: '10px', 
+                    boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.5)' : '0 4px 12px rgba(0,0,0,0.06)',
+                    color: isDark ? '#F1F7EE' : '#3D221C'
+                  }}
                   formatter={(val: any) => [`₹ ${val} Lakhs`, 'Test MAE']}
                 />
-                <Bar dataKey="mae" fill="#BC7B6F" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="mae" fill={isDark ? '#B7D894' : '#BC7B6F'} radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

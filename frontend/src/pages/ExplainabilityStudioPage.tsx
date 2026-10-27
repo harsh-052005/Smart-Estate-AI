@@ -19,8 +19,10 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
+import { useTheme } from '../context/ThemeContext';
 
 export const ExplainabilityStudioPage: React.FC = () => {
+  const { isDark } = useTheme();
   const [data, setData] = useState<ExplainabilityData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -107,14 +109,20 @@ export const ExplainabilityStudioPage: React.FC = () => {
           <div className="h-72 w-full pt-2">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={permData} layout="vertical" margin={{ top: 5, right: 20, left: 30, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E8E4DC" horizontal={false} />
-                <XAxis type="number" stroke="#826F6A" fontSize={10} tickFormatter={(v) => `+₹${v}L`} />
-                <YAxis dataKey="feature" type="category" stroke="#826F6A" fontSize={11} width={90} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#36415A' : '#E8E4DC'} horizontal={false} />
+                <XAxis type="number" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={10} tickFormatter={(v) => `+₹${v}L`} />
+                <YAxis dataKey="feature" type="category" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={11} width={90} tickLine={false} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CCCDC7', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
+                  contentStyle={{ 
+                    backgroundColor: isDark ? '#202734' : '#FFFFFF', 
+                    borderColor: isDark ? '#36415A' : '#CCCDC7', 
+                    color: isDark ? '#F1F7EE' : '#3D221C',
+                    borderRadius: '10px', 
+                    boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.5)' : '0 4px 12px rgba(0,0,0,0.06)' 
+                  }}
                   formatter={(v: any) => [`+₹ ${v} Lakhs error increase`, 'Permutation Impact']}
                 />
-                <Bar dataKey="impact" fill="#BC7B6F" radius={[0, 4, 4, 0]} />
+                <Bar dataKey="impact" fill={isDark ? '#B7D894' : '#BC7B6F'} radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -143,14 +151,20 @@ export const ExplainabilityStudioPage: React.FC = () => {
           <div className="h-72 w-full pt-2">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={mdiData} layout="vertical" margin={{ top: 5, right: 20, left: 30, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E8E4DC" horizontal={false} />
-                <XAxis type="number" stroke="#826F6A" fontSize={10} tickFormatter={(v) => `${v}%`} />
-                <YAxis dataKey="feature" type="category" stroke="#826F6A" fontSize={11} width={90} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#36415A' : '#E8E4DC'} horizontal={false} />
+                <XAxis type="number" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={10} tickFormatter={(v) => `${v}%`} />
+                <YAxis dataKey="feature" type="category" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={11} width={90} tickLine={false} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CCCDC7', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
+                  contentStyle={{ 
+                    backgroundColor: isDark ? '#202734' : '#FFFFFF', 
+                    borderColor: isDark ? '#36415A' : '#CCCDC7', 
+                    color: isDark ? '#F1F7EE' : '#3D221C',
+                    borderRadius: '10px', 
+                    boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.5)' : '0 4px 12px rgba(0,0,0,0.06)' 
+                  }}
                   formatter={(v: any) => [`${v}%`, 'MDI Share']}
                 />
-                <Bar dataKey="pct" fill="#718A9E" radius={[0, 4, 4, 0]} />
+                <Bar dataKey="pct" fill={isDark ? '#7E97B8' : '#718A9E'} radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

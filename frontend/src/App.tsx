@@ -7,14 +7,16 @@ import { ModelPerformanceLabPage } from './pages/ModelPerformanceLabPage';
 import { ExplainabilityStudioPage } from './pages/ExplainabilityStudioPage';
 import { PredictionStudioPage } from './pages/PredictionStudioPage';
 import { MethodologyPage } from './pages/MethodologyPage';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { Building2 } from 'lucide-react';
 import './App.css';
 
-export function App() {
+function AppContent() {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [apiHealthy, setApiHealthy] = useState<boolean | null>(null);
   const [meta, setMeta] = useState<MetaData | null>(null);
   const [overview, setOverview] = useState<OverviewData | null>(null);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     // 1. Backend health check
@@ -38,7 +40,11 @@ export function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#5A322A] selection:bg-[#E4A499]/35 selection:text-[#5A322A]">
+    <div className={`min-h-screen flex flex-col transition-colors duration-250 ${
+      isDark 
+        ? 'bg-[#202734] text-[#D2DCE6] selection:bg-[#B7D894]/30 selection:text-[#E0F8C7]' 
+        : 'bg-[#FAF8F5] text-[#5A322A] selection:bg-[#E4A499]/35 selection:text-[#5A322A]'
+    }`}>
       
       {/* Top Editorial Navigation */}
       <Navbar
@@ -79,26 +85,46 @@ export function App() {
       </main>
 
       {/* Luxury Editorial Footer */}
-      <footer className="border-t border-[#E8E4DC] bg-[#FFFFFF] py-8 text-xs text-[#826F6A]">
+      <footer className={`border-t py-8 text-xs transition-colors ${
+        isDark
+          ? 'border-[#36415A] bg-[#273042] text-[#8FA0B8]'
+          : 'border-[#E8E4DC] bg-[#FFFFFF] text-[#826F6A]'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-5 h-5 rounded-md bg-[#BC7B6F] flex items-center justify-center text-white">
-              <Building2 className="w-3 h-3" />
+            <div className={`w-5 h-5 rounded-md flex items-center justify-center transition-colors ${
+              isDark ? 'bg-[#36415A]' : 'bg-[#BC7B6F]'
+            }`}>
+              <Building2 className={`w-3 h-3 ${isDark ? 'text-[#B7D894]' : 'text-white'}`} />
             </div>
-            <span className="font-serif font-bold text-sm text-[#3D221C] tracking-tight">SMART ESTATE AI</span>
-            <span className="text-[#CCCDC7]">|</span>
-            <span className="text-[#826F6A]">Indian PropTech Machine Learning & Valuation Intelligence</span>
+            <span className={`font-serif font-bold text-sm tracking-tight ${
+              isDark ? 'text-[#F1F7EE]' : 'text-[#3D221C]'
+            }`}>
+              SMART ESTATE AI
+            </span>
+            <span className={isDark ? 'text-[#36415A]' : 'text-[#CCCDC7]'}>|</span>
+            <span className={isDark ? 'text-[#8FA0B8]' : 'text-[#826F6A]'}>
+              Indian PropTech Machine Learning & Valuation Intelligence
+            </span>
           </div>
 
-          <div className="flex items-center gap-4 text-[#826F6A]">
+          <div className={`flex items-center gap-4 ${isDark ? 'text-[#8FA0B8]' : 'text-[#826F6A]'}`}>
             <span>FastAPI Server (:8000)</span>
-            <span className="text-[#CCCDC7]">•</span>
+            <span className={isDark ? 'text-[#36415A]' : 'text-[#CCCDC7]'}>•</span>
             <span>React Production UI (:5173)</span>
           </div>
         </div>
       </footer>
 
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

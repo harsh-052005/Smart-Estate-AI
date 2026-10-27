@@ -19,12 +19,14 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
+import { useTheme } from '../context/ThemeContext';
 
 interface PropertyExplorerProps {
   meta: MetaData | null;
 }
 
 export const PropertyExplorerPage: React.FC<PropertyExplorerProps> = ({ meta }) => {
+  const { isDark } = useTheme();
   const [selectedLocation, setSelectedLocation] = useState<string>('All');
   const [selectedAreaType, setSelectedAreaType] = useState<string>('All');
   const [selectedBhk, setSelectedBhk] = useState<string>('All');
@@ -244,13 +246,19 @@ export const PropertyExplorerPage: React.FC<PropertyExplorerProps> = ({ meta }) 
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={analytics?.price_distribution || []}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E8E4DC" vertical={false} />
-                  <XAxis dataKey="range" stroke="#826F6A" fontSize={10} tickLine={false} />
-                  <YAxis stroke="#826F6A" fontSize={10} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#36415A' : '#E8E4DC'} vertical={false} />
+                  <XAxis dataKey="range" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={10} tickLine={false} />
+                  <YAxis stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={10} tickLine={false} />
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CCCDC7', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
+                    contentStyle={{ 
+                      backgroundColor: isDark ? '#202734' : '#FFFFFF', 
+                      borderColor: isDark ? '#36415A' : '#CCCDC7', 
+                      color: isDark ? '#F1F7EE' : '#3D221C',
+                      borderRadius: '10px', 
+                      boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.5)' : '0 4px 12px rgba(0,0,0,0.06)' 
+                    }}
                   />
-                  <Bar dataKey="count" fill="#BC7B6F" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="count" fill={isDark ? '#B7D894' : '#BC7B6F'} radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -267,14 +275,20 @@ export const PropertyExplorerPage: React.FC<PropertyExplorerProps> = ({ meta }) 
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={analytics?.bhk_distribution || []}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E8E4DC" vertical={false} />
-                  <XAxis dataKey="bhk" stroke="#826F6A" fontSize={10} tickLine={false} tickFormatter={(b) => `${b} BHK`} />
-                  <YAxis stroke="#826F6A" fontSize={10} tickLine={false} tickFormatter={(v) => `₹${v}L`} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#36415A' : '#E8E4DC'} vertical={false} />
+                  <XAxis dataKey="bhk" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={10} tickLine={false} tickFormatter={(b) => `${b} BHK`} />
+                  <YAxis stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={10} tickLine={false} tickFormatter={(v) => `₹${v}L`} />
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CCCDC7', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
+                    contentStyle={{ 
+                      backgroundColor: isDark ? '#202734' : '#FFFFFF', 
+                      borderColor: isDark ? '#36415A' : '#CCCDC7', 
+                      color: isDark ? '#F1F7EE' : '#3D221C',
+                      borderRadius: '10px', 
+                      boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.5)' : '0 4px 12px rgba(0,0,0,0.06)' 
+                    }}
                     formatter={(v: any) => [`₹ ${v} Lakhs`, 'Average Price']}
                   />
-                  <Bar dataKey="avg_price" fill="#718A9E" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="avg_price" fill={isDark ? '#7E97B8' : '#718A9E'} radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -291,14 +305,20 @@ export const PropertyExplorerPage: React.FC<PropertyExplorerProps> = ({ meta }) 
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={analytics?.top_localities || []} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E8E4DC" horizontal={false} />
-                  <XAxis type="number" stroke="#826F6A" fontSize={10} tickFormatter={(v) => `₹${v}L`} />
-                  <YAxis dataKey="location" type="category" stroke="#826F6A" fontSize={10} width={140} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#36415A' : '#E8E4DC'} horizontal={false} />
+                  <XAxis type="number" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={10} tickFormatter={(v) => `₹${v}L`} />
+                  <YAxis dataKey="location" type="category" stroke={isDark ? '#8FA0B8' : '#826F6A'} fontSize={10} width={140} tickLine={false} />
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CCCDC7', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
+                    contentStyle={{ 
+                      backgroundColor: isDark ? '#202734' : '#FFFFFF', 
+                      borderColor: isDark ? '#36415A' : '#CCCDC7', 
+                      color: isDark ? '#F1F7EE' : '#3D221C',
+                      borderRadius: '10px', 
+                      boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.5)' : '0 4px 12px rgba(0,0,0,0.06)' 
+                    }}
                     formatter={(v: any) => [`₹ ${v} Lakhs`, 'Average Price']}
                   />
-                  <Bar dataKey="avg_price" fill="#5A322A" radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="avg_price" fill={isDark ? '#B7D894' : '#5A322A'} radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

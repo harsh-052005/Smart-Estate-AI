@@ -32,13 +32,14 @@ Smart Estate AI Architecture
 │   └── best_model.joblib         # Fitted scikit-learn Random Forest pipeline (4.06 MB)
 │
 ├── data/
-│   ├── split_indices.npz         # 200,000 train / 50,000 test partition row indices
-│   ├── preprocessor_tree.joblib  # Fitted scale-invariant ColumnTransformer
-│   └── preprocessor_linear.joblib# Fitted scaled ColumnTransformer
+│   ├── split_indices.npz         # 70/15/15 train/val/test partition row indices
+│   ├── preprocessor_tree.joblib  # Fitted tree preprocessor
+│   └── preprocessor_linear.joblib# Fitted linear preprocessor
 │
-├── india_housing_prices.csv      # Original raw dataset (250,000 rows, 23 columns, read-only)
-├── app.py                        # Original Streamlit dashboard (Preserved fallback)
-├── requirements.txt              # Backend & Streamlit Python dependencies
+├── bengaluru_house_prices.csv    # Source housing dataset (13,320 rows)
+├── requirements.txt              # Backend & ML dependencies
+├── Dockerfile                    # Multi-stage production container
+├── render.yaml                   # Render Cloud Blueprint
 └── .gitignore                    # Environment, cache, and build ignore rules
 ```
 
@@ -88,19 +89,6 @@ npm run dev -- --host 127.0.0.1 --port 5173
 
 - **Frontend Application URL:** `http://127.0.0.1:5173`
 - *The Vite development server automatically proxies all `/api/*` network requests to `http://127.0.0.1:8000`.*
-
----
-
-### 4. Terminal 3 (Optional): Launch Streamlit Fallback
-
-The original Streamlit application remains functional as an operational fallback:
-
-```bash
-cd "/Users/harsh/Desktop/Smart Estate AI"
-streamlit run app.py --server.port 8501
-```
-
-- **Streamlit Fallback URL:** `http://localhost:8501`
 
 ---
 
